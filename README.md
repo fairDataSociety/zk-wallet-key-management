@@ -51,4 +51,4 @@ Keys are rotated bty design, so public keys must be registered as revoked in a o
 - Luis Sanchez (Bee team)
 - Rogelio Morrell (FDP team)
 
-MIT LicenseSeedPhrase
+MIT Licensed
