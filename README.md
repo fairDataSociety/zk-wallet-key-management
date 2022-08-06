@@ -4,21 +4,35 @@ ZK-Snarks based Wallet Key Management using smart contracts for seed phrase cont
 
 ## Abstract
 
-This experiments is an approach to seed phrase and private key less key management, which we call `radioactive toxic waste`, which should be avoided at all cost being treated by humans.
+This project is an approach to seed phrase and private key less key management, which we call `radioactive toxic waste`, which should be avoided at all cost being treated by humans.
 
-How we are accomplishing this feature?
+## Features at a glance
+
+- ENS -`PublicResolver` (exists in `fdp-contracts`)
+- Wasm secure execution context - `KeychainOpsManager`
+- ZK-snarks trusted setup  - `KeySequencer`
+- Ethereum Smart Contracts - `KeyController`
+- Certificate Transparency for blockchain wallets
+
+### Wasm for secure execution
+
+- Keypair operations are executed with security policies using WasmEdge
+
+### *NS supported by default
+
+- First release will use ENS to connect addresses to keys, the spec will allowed for other chains nameservices.
 
 ### A seed phrase key manager or controller
 
 A smart contract (no need to be one per user) that handles seed phrase identification through ZK-snarks proofs, must be able to:
 
-- Associate a seed phrase to Swarm Bee store FDP seed phrase
+- Associate a seed phrase to Swarm Bee store FDP encrypted seed phrase
 - Keep track of key derivation using fingerprinting
-- Be able to recover keys by registered WebAuthentication keys, backup codes or Google Drive exporte keystores
+- Be able to recover keys by registered WebAuthentication keys, backup codes or Google Drive exported keystores
 
-### A Go base `gnark` zk trusted setup
+### A Go based tooling by using `gnark` for zk trusted setup
 
-Where it will create zk-snarks proofs and then update the smart contract with private keys sequences. Seed phrase is downloaded into client (same as FDP) and key is generated inside a TPM Secure Enclave. A production implementation must be contained in mobile which have SDKs available for TPMs.
+Where it will create zk-snarks proofs and then update the smart contract with private keys sequences. Seed phrase is downloaded into client (same as FDP) and key is generated inside `WasmEdge`
 
 ### Recovery 
 
@@ -28,7 +42,7 @@ Where it will create zk-snarks proofs and then update the smart contract with pr
 
 ### Certificate Transparency support
 
-Public keys which are rotated, must be registered as revoked in a offchain Certificate Transparenct database, but with the additional zk-snarks proof as index to search for seed phrase merkle tree of private keys (HD Wallet keys). These logs must not contain any machine or hardware tags or identifier.
+Keys are rotated bty design, so public keys must be registered as revoked in a offchain Certificate Transparency database, but with the additional zk-snarks proof as index to search for seed phrase merkle tree of private keys (HD Wallet keys). These logs must not contain any machine or hardware tags or identifier.
 
 ### API and documentation plus a sample Dapp
 
@@ -36,3 +50,5 @@ Public keys which are rotated, must be registered as revoked in a offchain Certi
 
 - Luis Sanchez (Bee team)
 - Rogelio Morrell (FDP team)
+
+MIT LicenseSeedPhrase
